@@ -1,0 +1,34 @@
+;; RefTeX parse info file
+;; File: /Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex
+;; User: michaelkoller (Michael Koller)
+
+(set reftex-docstruct-symbol '(
+
+
+(xr nil "\\\\\\\\\\\\")
+
+(index-tags "idx")
+
+(is-multi nil)
+
+(bibview-cache)
+
+(master-dir . "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/")
+
+(label-numbers)
+
+(bof "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex")
+
+(index "idx" "\\newcommand{\\myindex}[1]{#1\\index{#1}}" "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex" 850 "#1" "#1" "#1" "#1" nil)
+
+(toc "toc" "    1 Aim" "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex" nil 2 "1" "\\section{Aim}" 5285)
+
+(toc "toc" "    2 Products Modelled" "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex" nil 2 "2" "\\section{Products Modelled}" 5701)
+
+(toc "toc" "    3 Calculation Formulae" "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex" nil 2 "3" "\\section{Calculation Formulae}" 6537)
+
+(toc "toc" "    4 Structures" "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex" nil 2 "4" "\\section{Structures}" 11924)
+
+(eof "/Users/michaelkoller/Documents/Permanent/ProgramSuite/C_New_Markov/vamod/20120701-conc-v010.tex")
+))
+

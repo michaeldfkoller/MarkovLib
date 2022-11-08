@@ -1,0 +1,59 @@
+
+FOut  out9600_2009a.dat
+OutputMode cf ; normal
+Id   nostress	
+%
+NEWGLMOD
+GLMOD(SetQx) 1RM ./GRM_F1995/qxmann.dat
+GLMOD(SetQx) 2RM ./GRM_F9600/qxmann.dat
+GLMOD(SetQx) 1RF ./GRM_F1995/qxfrau.dat
+GLMOD(SetQx) 2RF ./GRM_F9600/qxfrau.dat
+GLMOD(SetQx) 1KM ./GRM_F9600/qxmann.dat
+GLMOD(SetQx) 2KM ./GRM_F9600/qxmann.dat
+GLMOD(SetQx) 1KF ./GRM_F9600/qxfrau.dat
+GLMOD(SetQx) 2KF ./GRM_F9600/qxfrau.dat
+%
+GLMOD(SetFx) 1RM ./GRM_F1995/fxmann.dat
+GLMOD(SetFx) 2RM ./GRM_F9600/fxmann.dat
+GLMOD(SetFx) 1RF ./GRM_F1995/fxfrau.dat
+GLMOD(SetFx) 2RF ./GRM_F9600/fxfrau.dat
+GLMOD(SetFx) 1KM ./GRM_F1995/fxmann.dat
+GLMOD(SetFx) 2KM ./GRM_F9600/fxmann.dat
+GLMOD(SetFx) 1KF ./GRM_F1995/fxfrau.dat
+GLMOD(SetFx) 2KF ./GRM_F9600/fxfrau.dat
+%
+GLMOD(SetTo) 1RM 1998
+GLMOD(SetTo) 2RM 1998
+GLMOD(SetTo) 1RF 1998
+GLMOD(SetTo) 2RF 1998
+GLMOD(SetTo) 1KM 1998
+GLMOD(SetTo) 2KM 1998
+GLMOD(SetTo) 1KF 1998
+GLMOD(SetTo) 2KF 1998
+%
+GLMOD(ActTime) 2004
+GLMOD(SetYield) yield30112009.txt
+% was GLMOD(--SetInForce) inp311203.dat
+GLMOD(SetInForce) inpevkv.dat
+GLMOD(Execute)
+Append y
+%%
+GLMOD(SetSx) sx.txt
+GLMOD(SetStress) qx 1.0
+Id WithSx
+GLMOD(Execute)
+%%
+GLMOD(SetStress) qx 0.9
+Id   QxStress
+GLMOD(Execute)
+%%
+GLMOD(SetStress) reset
+GLMOD(SetStress) sx 0.2
+Id   SxStress
+GLMOD(Execute)
+%%
+GLMOD(SetStress) reset
+GLMOD(SetStress) sx   0.2
+GLMOD(SetStress) yield 0.03
+Id   YieldSxStress
+GLMOD(Execute)

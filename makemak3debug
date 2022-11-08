@@ -1,0 +1,21 @@
+export CC=gcc-4.2
+export CXX=g++-4.2
+export FFLAGS=-ff2c
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include   -shared -c -O3 -fPIC -DFOR_OLE  annmod.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -fPIC -DFOR_OLE  annuity.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -fPIC -DFOR_OLE  annuity2.cpp
+g++  -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include   -shared -c -O3 -fPIC -DFOR_OLE  capital.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -fPIC -DFOR_OLE  glmod.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -fPIC -DFOR_OLE  omarkov.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -S -fPIC -DFOR_OLE  omarkov.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -fPIC -DFOR_OLE  widdow.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include     -shared -c -O3 -fPIC -DFOR_OLE  tableserver.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include    -shared -c -O3 -fPIC -DFOR_OLE  vamod.cpp
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include/c++/4.2.1 -static -c -O3 -fPIC -DFOR_OLE -DNORAN2 simlib.cpp
+swig   -c++ -python omarkov.i
+g++ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include   -shared -c -O3 -fPIC -DFOR_OLE  -DSIMLIB_FOR_VAMOD -I/Users/michaelkoller/anaconda/include/python2.7/ -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/usr/include/c++/4.2.1 omarkov_wrap.cxx
+ld -macosx_version_min 10.10 -bundle -flat_namespace -undefined suppress -o _markovlv.so annmod.o annuity.o annuity2.o capital.o glmod.o omarkov.o widdow.o  tableserver.o vamod.o simlib.o omarkov_wrap.o /usr/local/lib/libgsl.a /usr/local/lib/libgslcblas.a /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/usr/lib/dylib1.o
+
+
+
+

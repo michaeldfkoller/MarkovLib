@@ -1,0 +1,252 @@
+\documentclass[11pt,a4paper]{article}%
+%% ------------------------------------
+\input{misc/packages}%
+%% Spezielle Pakete für pdfLaTeX mit hypperref
+\usepackage[T1]{fontenc}%
+\usepackage[ansinew]{inputenc}%
+\usepackage{a4}%
+\usepackage{makeidx,multind,mathcomp}
+\usepackage{enumerate}%
+\usepackage{color}%
+\usepackage{amsfonts,amsmath,amssymb,amsthm,txfonts} %% txfonts hinzugef\"{u}gt 2.12.2002
+\usepackage{supertabular}%
+\usepackage[pdftex]{graphicx}
+\usepackage[pdftex,
+            colorlinks=true,            % Schrift von Links in Farbe (true), sonst mit Rahmen (false)
+            bookmarksnumbered=true,     % Lesezeichen im pdf mit Nummerierung
+            bookmarksopen=true,         % Öffnet die Lesezeichen vom pdf beim Start
+            bookmarksopenlevel=0,       % Default ist maxdim
+            pdfstartview=FitH,          % startet mit Seitenbreite
+            linkcolor=blue,             % Standard 'red'
+            citecolor=blue,             % Standard 'green'
+            urlcolor=blue,              % Standard 'cyan'
+            filecolor=blue,             %
+            plainpages=false]{hyperref} % Forces page anchors to be named by the arabic form of the page number,
+                                        % rather than the formatted form. (default=true; Probleme wenn Seitennummer
+                                        % im Dokument zurückgesetzt wird!)
+            %pdfpagemode=UseThumbs      % Thumbnails
+            %pdfhighlight=/O
+
+\begin{document}%
+\chapter{Application of the Markov model to Life Insurance} \label{App*Markov}
+\typeout{****************************************************************}
+\typeout{This is Version 0.80 of markov.tex}
+\typeout{****************************************************************}
+\section{Traditional Rating of Life Contracts}
+
+Before starting with the Markov model, I would like to summarise how traditional 
+calculations using commutation functions are performed. Usually one starts with the 
+probabilities of death and then calculates a decrement table starting with, say, 100000 
+persons at age 20. 
+
+After that one, has to calculate the different commutation functions, which I assume 
+everybody knows by heart. These numbers depend on the persons alive and 
+on the technical interest rate i. Only when you have done this it is (in the 
+classical framework) possible to calculate the necessary premiums. 
+In the following we will look a little bit closer at the calculation of a single premium for an 
+annuity. To do this we need the following commutation functions: 
+
+\begin{eqnarray*} 
+D_x &=& v \times l_x \mbox{where $l_x$ denotes the number of persons alive at age $x$.} \nonumber \\
+C_x &=& v \times (l_{x+1} -l_x )  \nonumber
+\end{eqnarray*}
+
+Having this formalism it is well known that 
+
+\begin{eqnarray*}
+\ddot{a}_x & = \frac{N_x}{D_x}  
+\end{eqnarray*}
+
+
+
+From this example is easily seen that almost all premiums can be calculated by summation 
+and multiplication of commutation functions. Such an approach has its advantages 
+in an environment where calculations have to be performed by hand, or where computers are 
+expensive. Calculation becomes messy if benefits are considered with 
+guarantees or with refunds. 
+
+The Markov model here presented offers rating of life contracts without using commutation 
+functions. It starts with calculation of the reserves and uses the involved probabilities directly. 
+In order to see such a calculation let's review the above-mentioned example: 
+We will use ${}_n p_x$ to denote the probability of a person aged exactly $x$ surviving for $n$ years. 
+
+\begin{eqnarray*}
+\ddot{a}_x  & = & \sum_{j=0}^\infty {}_{j} p_x \times v^j \\ 
+            & = & 1 + p_x \times \ddot{a}_{x+1}
+\end{eqnarray*}
+
+The above formula gives us a recursion for the mathematical reserves of the contract. Hence 
+one can calculate the necessary single premiums just by recursion. In order to do this, we need 
+an initial condition, which is in our case $V_\omega = 0$. 
+
+The interpretation of the formula is easy: The necessary reserve at age $x$ consists of two parts: 
+\begin{enumerate}
+\item The annuity payment, and 
+\item The necessary reserve at age x+1. (These reserves must naturally be 
+discounted.) 
+\end{enumerate}
+
+It should be pointed out that the calculation does not need any of the commutation functions; 
+only $p_x$ and the discount factor v are used. As a consequence this method does not produce 
+the overheads of traditional methods. 
+
+In the following paragraphs the discrete time, discrete state Markov model is introduced and 
+solutions of some concrete problems are offered. 
+
+At this point, it is necessary to stress the fact that the following frame work can be used, with 
+some modifications, in an environment with stochastic interest. But as we are limited in space 
+and time we have to restrict ourselves to deterministic constant discount rates. 
+
+\section{Life Insurance considered as Random Cash flows}
+
+The starting point of the Markov model is a set of states, which correspond to the different 
+possible conditions of the insured persons. In life insurance the set of states usually consists of 
+{alive, dead}. The set of states will be denoted by $S$. 
+
+The second point which originates from the life contract has to do with the so-called 
+contractual functions which depend on the states and the time. Hence the structure of a 
+generalised life contract can be thought of: 
+
+Contractual situation between time $t$ and time $t+1$ 
+
+\mkimg{0.95}{img/markov.png}%
+
+From the above diagram it can be seen that a finite number of states is considered, and that for 
+
+
+each transition $i \to j$ two different sums are paid, namely $a_{ij}^{\mb{Post}}(t)$ at the end of the 
+considered time interval and $a_i^{\mb{Pre}}(t)$ at the beginning of it. It is clear that the value of the 
+payment stream $a_{ij}^{\mb{Post}}(t)$ has to be discounted by v in order to be compatible with $a_i^{\mb{Pre}}(t)$. 
+Probably it is worth remarking that the use of the two payment streams $a_i^{\mb{Pre}}(t)$ and $a_{ij}^{\mb{Post}}(t)$ 
+eases the solution of things like payments during the year and the distinction between lump 
+
+sums (generally payable at the end of the period) and annuities (at the beginning). Finally it 
+must be said that premiums payable to the insurer can (not must (!)) be considered as benefits 
+with the opposite sign. 
+
+Until now we have defined the sums which are payable if a certain insured event occurs. Now 
+there has to be a probability law in order to rate the different transitions. In the following we 
+denote by $p_{ij}(t,t+1)$ the probability of transition at time t from state $i \to j$ . Hence in the 
+language of the above diagram there is one transition probability assigned to each line 
+between two states. 
+
+So summarising a Markov life insurance model consists of the following: \par
+\begin{tabular}{lp{5.5cm}}
+$S$ & A finite state space (set). \\
+$((p_{ij}(t))_{(i,j) \in S^2})_{t \in (1,2, \dots \omega)}$ & The transition probabilities describing the Markov chain $X_t$ on $S$. \\
+$((a_i^{\mb{Pre}}(t))_{i \in S})_{t \in (1,2, \dots \omega)} $ & The prenumerando benefits relating, paying at the beginning of the corresponding period. \\
+$((a_{ij}^{\mb{Post}}(t))_{(i,j) \in S^2})_{t \in (1,2, \dots \omega)} $ & The postnumerando benefits relating, paying at the end of the corresponding period, if a transition $i \to j$ happens.\\
+$((v_i(t))_{i \in S})_{t \in (1,2, \dots \omega)} $ & The yearly discount rate from $[t, t+1[$. We have $v_t=\sum_{j \in S} I_j(t) \, v_i(t)$. 
+\end{tabular}
+
+\section{Reserves, Recursion and Premiums}
+
+One of the most important quantities in actuarial science is the prospective reserve, as the 
+insurer must have this amount of money for each policy. Therefore the concept of the 
+prospective reserve is known to all actuaries. It is defined to be the present value of the future 
+cash flow $A$ given the information at present. Formally we write 
+
+\[ V^+_j(t,A) := E[V(t, A \times \chi_{]t,\infty]})\, | \, X_t=j], \]
+
+
+(where $j$ denotes the state at time t). This notation tells us, that the reserve depends heavily on the state 
+of the policy. 
+
+In the context of the above we have
+
+\begin{eqnarray*}
+\Delta A(t)   & = & \sum_{j \in S} I_j(t) \times a_i^{\mb{Pre}}(t) + \sum_{(i,j) \in S \times S} \Delta N_{ij}(t) \times a_{ij}^{\mb{Pre}}(t), \\
+A(t)          & = & \sum_{k \le t} \Delta A(k), \\
+\Delta V(t,A) & = & v(t) \Delta A(t), \\ 
+              & = & v(t) \left[ \sum_{j \in S} I_j(t) \times a_i^{\mb{Pre}}(t) + \sum_{(i,j) \in S \times S} \Delta N_{ij}(t) \times a_{ij}^{\mb{Pre}}(t) \right], \\
+v(t)          & = & \prod_{\tau \le t} \left[ \sum_{j \in S} I_j(\tau) \times v_j(\tau) \right]. 
+\end{eqnarray*}
+ 
+The direct calculation of the necessary reserves for the different states is not too easy if you 
+consider a general time continuous Markov model. An advantage of this model is the 
+existence of a powerful backwards recursion. 
+The following formula (Thiele difference equation) allows the recursive calculation of the necessary reserves and hence of 
+the necessary single premiums: 
+
+\begin{eqnarray}
+V_i^+(t) & = & a_i^{Pre}(t) + \sum_{j\in S}  v_i(t) \, \mbox{$p$}_{ij}(t) \big\{ a^{Post}_{ij}(t) + V_j^+(t+1) \big\}.
+\end{eqnarray} \label{DK:Markov:Prop:Calc}
+
+The interpretation of the formula is almost the same as in the trivial example at the beginning. In 
+principle the present reserve consists of payments due to the different possible transitions and 
+the discounted values of the future necessary reserves. It can be seen that the above recursion 
+uses only the different benefits, the probabilities and the discount factor. 
+In order to calculate the reserve for a certain age one has to do a backwards recursion starting 
+at the expiration date of the policy. For annuities this is usually the age $\omega$ when everybody 
+has died. Starting the recursion it is necessary to have boundary conditions, which depend on 
+the payment stream at the expiration date. Usually the boundary conditions are taken to be 
+zero for all reserves. It should be pointed out that one has to do this recursion for the reserves 
+of all states simultaneously. 
+
+After the calculation of the different reserves one can naturally determine the corresponding 
+necessary single premiums by the principle of equivalence. 
+
+We want to end this section with a short proof of the above mentioned Thiele recursion:
+
+We know that $A(t) = \sum_{k \le t} \Delta A(k) $ and also that 
+
+\[
+\Delta V(t,A) = v(t) \left[ \sum_{j \in S} I_j(t) \times a_i^{\mb{Pre}}(t) + \sum_{(i,j) \in S \times S} \Delta N_{ij}(t) \times a_{ij}^{\mb{Pre}}(t) \right]. 
+\]
+
+Hence we have
+
+\begin{eqnarray*}
+V_i^+(t) & = & \frac{1}{v(t)} \mathbb{E} \left[ \sum_{\tau = t}^ \infty v(\tau) \times \Delta A(\tau) \, | \, X_t=i \right] \\
+         & = & \frac{1}{v(t)} \mathbb{E} \left[ \sum_{j \in S} I_j(t+1) \times \sum_{\tau = t}^ \infty v(\tau) \times \Delta A(\tau) \, | \, X_t=i \right] ,
+\end{eqnarray*}
+
+remarking that $\sum_{j \in S} I_j(t+1) = 1$. If we now consider all the terms in $\Delta A(t)$ for a given $I_j(t+1)$ for $j \in S$, it becomes obvious that the Markov chain changes from $i \to j$ and in consequence only $N_{ik}(t)$ increases by one for $k=j$. If we furthermore use the projection property and the linearity of the conditional expected value and the fact that $\mathbb{E}\left[I_j(t+1) \, | \, X_t = i \right] = p_{ij}(t,t+1)$, together with the Markov property, we get the formula if we split $V_i^+(t)$ as follows:
+
+\begin{eqnarray*}
+V_i^+(t) & = & \frac{1}{v(t)} \mathbb{E} \left[ \sum_{\tau = t}^ \infty v(\tau) \times \Delta A(\tau) \, | \, X_t=i \right] \\
+         & = & \frac{1}{v(t)} \mathbb{E} \left[ \left\{ \sum_{\tau = t}^t + \sum_{\tau = t+1}^ \infty\right\}v(\tau) \times \Delta A(\tau) \, | \, X_t=i \right]. 
+\end{eqnarray*}
+
+
+Doing this decomposition we get for the first part:
+
+\begin{eqnarray*}
+\mb{Part}_1 & = & a_i^{Pre}(t) + \sum_{j\in S}  v_i(t) \, \mbox{$p$}_{ij}(t) a^{Post}_{ij}(t),
+\end{eqnarray*}
+
+
+and for the second:
+
+\begin{eqnarray*}
+\mb{Part}_2 & = & \sum_{j\in S}  v_i(t) \, \mbox{$p$}_{ij}(t) V_j^+(t+1).
+\end{eqnarray*}
+
+Adding the two parts together we get the desired result:
+
+
+\begin{eqnarray*}
+V_i^+(t) & = & a_i^{Pre}(t) + \sum_{j\in S}  v_i(t) \, \mbox{$p$}_{ij}(t) \big\{ a^{Post}_{ij}(t) + V_j^+(t+1) \big\}.
+\end{eqnarray*}
+
+More concretely we have
+
+\begin{eqnarray*}
+V_i^+(t)  & = & \frac{1}{v(t)} \mathbb{E} \left[ \sum_{j \in S} I_j(t+1) \times \sum_{\tau = t}^ \infty v(\tau) \times \Delta A(\tau) \, | \, X_t=i \right] \\
+          & = & a_i^{Pre}(t) + \sum_{j \in S} \mathbb{E} \left[ I_j(t+1) \times \sum_{\tau = t}^ \infty \frac{v(\tau)}{v(t)} \times \Delta A(\tau) \, | \, X_t=i \right] \\
+          & = & a_i^{Pre}(t) + \sum_{j \in S} \mathbb{E} \bigg[ I_j(t+1) v_i(t) \bigg\{ a_{ij}^{Post} +  \nonumber \\ 
+          & & +   \mathbb{E} \bigg[ \sum_{\tau = t+1}^ \infty \frac{v(\tau)}{v(t+1)} \times \Delta A(\tau) \, \bigg| \, X_t=i, X_{t+1}=j  \bigg] \bigg\} \bigg| \, X_t=i \bigg] \\
+          & = & a_i^{Pre}(t) + \sum_{j\in S}  v_i(t) \, \mbox{$p$}_{ij}(t) \big\{ a^{Post}_{ij}(t) + V_j^+(t+1) \big\}.
+\end{eqnarray*}
+
+
+We remark that this section can only be a short introduction to this topic and we refer to \cite{Koller2010} for a more extensive discussion.
+
+\section{Beispiele}
+\section{omarkov.h}
+\section{omarkov.cpp}
+\section{annuity.h}
+\section{annuity.cpp}
+\section{capital.h}
+\section{capital.cpp}
+\end{document}%
