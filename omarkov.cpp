@@ -12,7 +12,7 @@
 #include "omarkov.h"
 
 
-const char * strPrgVersionStatic = "%% This is omarkov V2.10 - Michael Koller 2011/2022 \n";
+const char * strPrgVersionStatic = "%% This is omarkov V2.10 - Michael Koller 2011/2022 For GitHub\n";
 
 // Wenn deterministischer Zins, so steht der Zins für alle Elemente auf der Diagonale
 
