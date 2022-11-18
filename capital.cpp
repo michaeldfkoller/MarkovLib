@@ -157,7 +157,6 @@ void  CAPITALLV::vSetPremium(double dValue)
 
 void CAPITALLV::vSetSurvivalGen(long lTime, double dValue)
 {
-  int iC;
   lValid = false;
   // Unterschied zu oben - es werden nicht alle anderen auf
   // Null gesetzt
@@ -309,7 +308,7 @@ double CAPITALLV::dSetQx2Level(long lTime, double dValue)
       double dTemp;
       int iC;
       for(iC=0; iC < 250; ++ iC)
-	dTemp = psymQx2Level->dSetValue(iC, dValue);
+	      dTemp = psymQx2Level->dSetValue(iC, dValue);
       return(dTemp);
     }
   else

@@ -47,7 +47,7 @@ ANNMOD::ANNMOD():MARKOVLV(250l, ANNNRSTATES ,1l)
   long lNTimes = 4;
   double dTemp;
   double dPre = (lNTimes + 1) /( 2. * lNTimes);
-  double dPost= (lNTimes - 1) /( 2. * lNTimes);
+  
 
   //  MARKOVLV::MARKOVLV(250l, ANNNRSTATES ,1l);
   vSetNrStates(ANNNRSTATES);
@@ -192,7 +192,6 @@ void           ANNMOD::vAddAnnuity1(long lSex, long lX, long lS, long lNTimes, d
   double dPre = (lNTimes + 1) /( 2. * lNTimes);
   double dPost= (lNTimes - 1) /( 2. * lNTimes);
   int iC1, iC2 =0;
-  double dV = 1./(1.+dITechn);
   double dBeta;
   
   int iStateStar= WOMAN * lSex + ONELIFE +lX;
@@ -252,7 +251,6 @@ void           ANNMOD::vAddAnnuity2xy(long lSex1, long lSex2, long lX, long lY, 
   double dPost= (lNTimes - 1) /( 2. * lNTimes);
   long   lDeltaXY;
   int iC1, iC2 =0;
-  double dV = 1./(1.+dITechn);
   double dBeta;
      
   int iStateStar= lX;
