@@ -12,7 +12,7 @@
 #include "omarkov.h"
 
 
-const char * strPrgVersionStatic = "%% This is omarkov V2.00 - Michael Koller 2011 \n";
+const char * strPrgVersionStatic = "%% This is omarkov V2.10 - Michael Koller 2011/2022 \n";
 
 // Wenn deterministischer Zins, so steht der Zins für alle Elemente auf der Diagonale
 
@@ -1100,7 +1100,7 @@ double MARKOVLV::dGetCF(long lTime, long lInitState, long lTimeState)
     /* 0. Variabeln definieren und belegen                           */
     /* ------------------------------------------------------------- */
     long   laufzeit;                                                   
-    long   istate, jstate, kstate;   /* zustand i -> zustand j               */
+    long   istate, jstate, kstate;   /* zustand i -> zustand j       */
     long   lCStartState;
     double akt_disk;         /* diskont fuer aktuelle periode        */
     double p_ij_t;           /* uebergangswahrscheinlichkei  t       */
@@ -1125,6 +1125,7 @@ double MARKOVLV::dGetCF(long lTime, long lInitState, long lTimeState)
 	/* dann gilt :                                                   */
 	/* Vj(t) = summe(g) [ pjg(t,s)(z(j,g) + eing-disk * Vg(s)]       */
 	/* wobei z(j,g) die faellige Leist bezeichnet                    */
+	/* ------------------------------------------------------------- */
 	for(laufzeit = lStopTime ; laufzeit < lStartTime; ++laufzeit)
 	  {   
 	    memset(pdPNext, 0, lNrStates * sizeof(double));
@@ -1139,7 +1140,7 @@ double MARKOVLV::dGetCF(long lTime, long lInitState, long lTimeState)
 	
 		if(pppsymDiscInfo[istate][kstate] != NULL)
 		  akt_disk = pppsymDiscInfo[istate][kstate]->dGetValue(laufzeit);   
-                                               /* aktueller diskont fuer 1 periode */
+                                    /* aktueller diskont fuer 1 periode */
 		else
 		  akt_disk = 0.;
 		/* uebergangsw'keit */
@@ -1188,7 +1189,7 @@ long     MARKOVLV::lGetNrStates(){return(lNrStates);}
 long     MARKOVLV::lGetStartTime(){return(lStartTime);}
 long     MARKOVLV::lGetStopTime(){return(lStopTime);}
 
-double         MARKOVLV::dGetRP(long lTime, long lState) // Berechnet Risikopraemie TODO
+double         MARKOVLV::dGetRP(long lTime, long lState) // Berechnet Risikopraemie
 {
   long lNachNicht   = plFolgezustand[lState], kstate, lNach;
   double akt_disk, dWert= 0, dPart, dGeplant; 
