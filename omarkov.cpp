@@ -282,7 +282,9 @@ MARKOVLV::MARKOVLV(long lMaxTimesIpt, long lMaxStatesIpt, long lNrDefMomentsIpt)
   // Null pointer haben eg 0x0000. Das bedeutet, dass keine Elemente in der 
   // entsprechenden Kette vorhanden sind und kein Memory alloziert
   lMaxTimes  = lMaxTimesIpt;
+  if (lMaxTimes < 0) lMaxTimes = 1;
   lMaxStates = lMaxStatesIpt;
+  if (lMaxStates < 0) lMaxStates = 1; // Both to avoid memory leaks
   lStartTime = 0l;
   lStopTime  = 0l;
   lNrStates  = 0l;
