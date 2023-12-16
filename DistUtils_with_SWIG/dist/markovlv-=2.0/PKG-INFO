@@ -1,0 +1,12 @@
+Metadata-Version: 1.0
+Name: markovlv
+Version: =2.0
+Summary: This is a demo package
+Home-page: https://docs.python.org/extending/building
+Author: Michael Koller
+Author-email: michael.koller@bluemail.ch
+License: UNKNOWN
+Description: 
+        Markov Life Insurnace
+        
+Platform: UNKNOWN
