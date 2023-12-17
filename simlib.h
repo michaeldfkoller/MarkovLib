@@ -35,7 +35,7 @@
 
 #define HESTON 1
 #define REGIMESHIFT 2
-
+#define MAXSPDIM 20
 
 // Die folgende Klasse implementiert einen verketteten Leistungs oder W'keits-vektor
 #ifndef SIMLIB_FOR_VAMOD

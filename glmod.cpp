@@ -9,6 +9,7 @@
 ///////////////////////////////////////////////////////////////////
 
 #define PRO_MARKOV_STANDALONE
+
 #ifdef PRO_MARKOV_STANDALONE
 #define FOR_OLE
 #include "annuity.h"
@@ -58,6 +59,8 @@ GLMOD::GLMOD():MARKOVLV(250l, GLMNRSTATES ,1l)
   long lNTimes = 4;
   double dTemp;
   double dPre = (lNTimes + 1) /( 2. * lNTimes);
+  double dPost= (lNTimes - 1) /( 2. * lNTimes);
+
 
   //  MARKOVLV::MARKOVLV(250l, GLMNRSTATES ,1l);
   vSetNrStates(GLMNRSTATES);
@@ -354,6 +357,7 @@ void           GLMOD::vAddEndowment(long lSex, long lX, long lS, double dLeist, 
 void           GLMOD::vAddWiddow(long lSex, long lX, long lS, long lNTimes, double dLeist, double dPraem, double dITechn)
 {
   double dPre = (lNTimes + 1) /( 2. * lNTimes);
+  double dPost= (lNTimes - 1) /( 2. * lNTimes);
   double dTemp; 
   double dV = 1./(1.+dITechn);
   int iC1, iC2 =0;
@@ -578,10 +582,6 @@ double	     GLMOD::dGetDKTilde(long lTime)
 	}
     bTildeCalc = true;
     }
-  else
-  {
-      iC1=0;
-  }
 
   return(psymTilde->dGetValue(iC1));
 }
@@ -664,9 +664,8 @@ int GLMOD::iReadInforce(int iP, int iL, char * strFileName)
 	}
     }
   iMsg= fclose(psymFile);
-  
-  printf("\n Done: read of inforce %5d", lNrLines);
   return(0);
+  printf("\n Done: read of inforce %5d", lNrLines);
 }
 
 
@@ -676,7 +675,7 @@ void   GLMOD::vPrintTex(char * strName)
   printf("\n Start Printing Tex File");
   psymFile = fopen(strName,"w");
   if (psymFile != NULL)
-    MARKOVLV::vPrintTeX(psymFile, true, (char *) "GLM TRACE", true);
+    MARKOVLV::vPrintTeX(psymFile, true, "GLM TRACE", true);
   else
     printf("\n Open Tex File failed \n \n");
   printf("\n Tex Output to %s \n > done \n", strName);

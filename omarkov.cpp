@@ -8,11 +8,9 @@
 //                                                               //
 ///////////////////////////////////////////////////////////////////
 
-//#include "pch.h"
 #include "omarkov.h"
 
-
-const char * strPrgVersionStatic = "%% This is omarkov V2.10 - Michael Koller 2011/2022 For GitHub\n";
+const char * strPrgVersionStatic = "%% This is omarkov V2.00 - Michael Koller 2011 \n";
 
 // Wenn deterministischer Zins, so steht der Zins für alle Elemente auf der Diagonale
 
@@ -282,9 +280,7 @@ MARKOVLV::MARKOVLV(long lMaxTimesIpt, long lMaxStatesIpt, long lNrDefMomentsIpt)
   // Null pointer haben eg 0x0000. Das bedeutet, dass keine Elemente in der 
   // entsprechenden Kette vorhanden sind und kein Memory alloziert
   lMaxTimes  = lMaxTimesIpt;
-  if (lMaxTimes < 0) lMaxTimes = 1;
   lMaxStates = lMaxStatesIpt;
-  if (lMaxStates < 0) lMaxStates = 1; // Both to avoid memory leaks
   lStartTime = 0l;
   lStopTime  = 0l;
   lNrStates  = 0l;
@@ -451,6 +447,7 @@ MARKOVLV::~MARKOVLV()
 void MARKOVLV::vReset()
 { // Im wesentlichen werden die volatilen Teile der Daten wie beim
   // Destruktor geloescht - Kommentare she dort
+
   // Im Gegensatz zum Destruktor werden die Info-pointers nicht geloescht
   // und nur auf NULL (eg "keine Daten vorhanden") gesetzt
 
@@ -598,11 +595,9 @@ void MARKOVLV::vSetInternals(long lMaxTimesInput, long lMaxStatesInput)
     delete(ppsymPreInfo);
     delete(ppsymCFInfo);
     delete(plFolgezustand);
-
   } // Jetzt ist alles geloescht - wie beim Destruktor
   { // Und jetzt folgt derselbe Code fuer den Konstruktor mit
     // den neuen Parametern
-
     long lC1;
     LV_VECTOR ** psymVectTemp;
 
@@ -665,7 +660,6 @@ void MARKOVLV::vSetInternals(long lMaxTimesInput, long lMaxStatesInput)
     plFolgezustand = new long [lMaxStates];
     for(lC1=0; lC1 < lMaxStates; ++ lC1) plFolgezustand[lC1] = lC1;
   }
-
   if(psymAktTraj  != NULL) delete(psymAktTraj);
   if(psymAktCF    != NULL) delete(psymAktCF);
   if(psymAktDK    != NULL) delete(psymAktDK);
@@ -698,7 +692,6 @@ void MARKOVLV::vSetStartTime(long lTime)
   for(psymMatrTmp = psymCF;psymMatrTmp != NULL;psymMatrTmp = psymMatrTmp->psymNext)
     psymMatrTmp->vReset(); // auch hier CF auf Null gesetzt
 }
-
 void MARKOVLV::vSetStopTime(long lTime)
 { // Hier wird die Stopzeit neu gesetzt
   LV_MATRIX * psymMatrTmp;
@@ -742,7 +735,6 @@ void MARKOVLV::vSetNrStates(long lNrStatesIpt)
     psymDKInfo[lC1] = NULL;
 
 }
-
 void   MARKOVLV::vSetGetData(bool bStatus)
 {
   bGetData = bStatus;
@@ -1102,7 +1094,7 @@ double MARKOVLV::dGetCF(long lTime, long lInitState, long lTimeState)
     /* 0. Variabeln definieren und belegen                           */
     /* ------------------------------------------------------------- */
     long   laufzeit;                                                   
-    long   istate, jstate, kstate;   /* zustand i -> zustand j       */
+    long   istate, jstate, kstate;   /* zustand i -> zustand j               */
     long   lCStartState;
     double akt_disk;         /* diskont fuer aktuelle periode        */
     double p_ij_t;           /* uebergangswahrscheinlichkei  t       */
@@ -1127,7 +1119,6 @@ double MARKOVLV::dGetCF(long lTime, long lInitState, long lTimeState)
 	/* dann gilt :                                                   */
 	/* Vj(t) = summe(g) [ pjg(t,s)(z(j,g) + eing-disk * Vg(s)]       */
 	/* wobei z(j,g) die faellige Leist bezeichnet                    */
-	/* ------------------------------------------------------------- */
 	for(laufzeit = lStopTime ; laufzeit < lStartTime; ++laufzeit)
 	  {   
 	    memset(pdPNext, 0, lNrStates * sizeof(double));
@@ -1142,7 +1133,7 @@ double MARKOVLV::dGetCF(long lTime, long lInitState, long lTimeState)
 	
 		if(pppsymDiscInfo[istate][kstate] != NULL)
 		  akt_disk = pppsymDiscInfo[istate][kstate]->dGetValue(laufzeit);   
-                                    /* aktueller diskont fuer 1 periode */
+                                               /* aktueller diskont fuer 1 periode */
 		else
 		  akt_disk = 0.;
 		/* uebergangsw'keit */
@@ -1191,7 +1182,7 @@ long     MARKOVLV::lGetNrStates(){return(lNrStates);}
 long     MARKOVLV::lGetStartTime(){return(lStartTime);}
 long     MARKOVLV::lGetStopTime(){return(lStopTime);}
 
-double         MARKOVLV::dGetRP(long lTime, long lState) // Berechnet Risikopraemie
+double         MARKOVLV::dGetRP(long lTime, long lState) // Berechnet Risikopraemie TODO
 {
   long lNachNicht   = plFolgezustand[lState], kstate, lNach;
   double akt_disk, dWert= 0, dPart, dGeplant; 
@@ -1369,7 +1360,6 @@ void          MARKOVLV::vGenerateTrajectory()
       psymAktDK->dSetValue(lTime,dDK);
       psymAggregDK->dAddValue(lTime,psymAktTraj->lGetValue(lTime),dDK);
     }
-
   //printf("\n lTime %d DK %f State %d TotDK %f", lTime, dDK, psymAktTraj->lGetValue(lTime), psymAggregDK->dGetValue(lTime,0));
 }
 
@@ -1439,7 +1429,7 @@ void MARKOVLV::vPrintTeXFileName(char * pcFileName, bool bWithHeader, char * pcT
 {
   FILE * psymTeXFile;
 
-  psymTeXFile = NULL; // fopen_s(pcFileName, "w");
+  psymTeXFile  = fopen(pcFileName,"w");
   if(!psymTeXFile)
     {
       printf("\n Could not open FILE\n");

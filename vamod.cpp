@@ -23,7 +23,7 @@
 #ifdef FOR_OLE
 #pragma message ("In order to avoid double references to omarkov.cpp we include only header")
 #include "omarkov.h"
-#include "simlib.h"
+#include "simlib.cpp"
 #else
 #include "omarkov.cpp"
 #include "simlib.cpp"
@@ -217,6 +217,7 @@ VAMOD::~VAMOD()
     {
       delete(psymQx[iC1]);
       delete(psymFx[iC1]);
+
     }   
   delete(psymDisc);
   delete(psymSx);
@@ -660,7 +661,7 @@ void   VAMOD::vPrintTex(char * strName)
   printf("\n Start Printing Tex File");
   psymFile = fopen(strName,"w");
   if (psymFile != NULL)
-    MARKOVLV::vPrintTeX(psymFile, true, (char *) "VA TRACE", true);
+    MARKOVLV::vPrintTeX(psymFile, true, "VA TRACE", true);
   else
     printf("\n Open Tex File failed \n \n");
   printf("\n Tex Output to %s \n > done \n", strName);

@@ -1,0 +1,8 @@
+# markobvlv.toml
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "markovlv"  # as it would appear on PyPI
+version = "2.00"

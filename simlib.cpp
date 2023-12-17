@@ -426,7 +426,7 @@ void  SIMLIB::vRerunTrajectory()
 
   int i, j, k;
   double dTemp;
-  double dSumTemp[lDimSDE];
+  double dSumTemp[MAXSPDIM];
   // 1. Reset Trajectory plus bounday condition
   lSeedOLD = lSeed;
   psymTrajectory->vReset();
@@ -689,8 +689,8 @@ double  SIMLIB::dNormRnd()
 
 void    SIMLIB::vNormRndMuSigma()
 {
-  double dTemp[lDimSDE];
-  double dTempAnti[lDimSDE];
+  double dTemp[MAXSPDIM];
+  double dTempAnti[MAXSPDIM];
   int i, j;
   if (dNeedCalc)
     vDoCholevski();

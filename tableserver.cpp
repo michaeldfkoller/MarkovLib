@@ -148,7 +148,7 @@ char * TABLESERVER::pcAllTarifs()
   pcT1 = strBuffer;
   for (iC=0; iC< iNrTables; ++ iC)
     {
-      for(pcT2 =(char *)pcId[iC]; *pcT2; ++pcT1, ++pcT2)
+      for(pcT2 =pcId[iC]; *pcT2; ++pcT1, ++pcT2)
 	{
 	  *pcT1 = *pcT2;
 	}

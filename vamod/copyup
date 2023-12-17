@@ -1,4 +1,0 @@
-cp vamod.* ./../
-cp vastruct_gen.h ./../
-cp interpreter_gen.c ./../
-cp simlib.* ./../
