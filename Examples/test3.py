@@ -1,0 +1,33 @@
+import markovlv
+print("ALTERSRENTE")
+a = markovlv.ANNUITYLV()
+print(a.iSetTable("RA-QX-RA-1857"))
+a.vSetStopTime(20)
+a.vSetSAge(65)
+a.dSetPre(0.625)
+a2 = markovlv.ANNUITYLV()
+a2.vSetStopTime(20)
+a2.vSetSAge(65)
+a2.dSetPre(0.625)
+print(a2.iSetTable("RA-QX-RA-1857;0.75"))
+for i in range(20,120):
+    print(i, a.dGetDK(i), a2.dGetDK(i))
+
+print("CAPITAL")
+a = markovlv.CAPITALLV()
+print(a.iSetTable("GB-QX-MEDIEVAL"))
+a.vSetStopTime(20)
+a.vSetStartTime(70)
+a.vSetSurvival(65,100000.)
+a.vSetDeath(200000.)
+a.vSetPremium(2000.)
+a2 = markovlv.CAPITALLV()
+print(a2.iSetTable("GB-QX-MEDIEVAL;0.75"))
+a2.vSetStopTime(20)
+a2.vSetStartTime(70)
+a2.vSetSurvival(65,100000.)
+a2.vSetDeath(200000.)
+a2.vSetPremium(2000.)
+for i in range(20,80):
+    print(i, a.dGetDK(i), a2.dGetDK(i))
+
