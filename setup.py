@@ -21,7 +21,7 @@ module1 = Extension('_markovlv',
                          swig_opts=["-c++","-python"])
 
 setup (name = 'markovlv',
-       version = '^2.0',
+       version = '2.0',
        description = 'Markov Life Insurance Mathemetics Library',
        author = 'Michael Koller',
        author_email = 'michael.koller@bluemail.ch',
