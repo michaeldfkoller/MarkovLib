@@ -5,6 +5,7 @@ capital.cpp
 glmod.cpp
 omarkov.cpp
 omarkov.i
+omarkov.py
 setup.py
 tableserver.cpp
 vamod.cpp
